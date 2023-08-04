@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/signin.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="blueBg">
+            <div class="box signin">
+                <h2>Đã có tài khoản?</h2>
+                <button class="signinBtn">Đăng Nhập</button>
+            </div>
+            <div class="box signup">
+                <h2>Chưa có tài khoản</h2>
+                <button class="signupBtn">Đăng Ký</button>
+            </div>
+        </div>
+        <div class="formBx">
+            <div class="form signinForm">
+                <form th:action="@{/authenticateTheAccount}" method="POST">
+                    <h3>Đăng Nhập</h3>
+                    <input type="username" id="username" name="username" placeholder="Tên đăng nhập">
+                    <input type="password" id="password" name="password" onblur="kiemtramk();" placeholder="Mật khẩu"><span hidden id="ermk">(*)</span>
+                    <input type="submit" value="Đăng Nhập">
+                </form>
+            </div>
+
+            <div class="form signupForm">
+                <form th:action="@{/register}" method="POST" modelAttribute="account" >
+                    <h3>Đăng Ký</h3>
+                    <input type="username" id="username" name="username" path="username" placeholder="Tên đăng nhập">
+                    <input type="password" id="password" name="password" path="password" onblur="kiemtramk();" placeholder="Mật khẩu"><span hidden id="ermk">(*)</span>
+                    <input type="submit" value="Đăng Ký">
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> 
+
+    <script>
+        const signinBtn = document.querySelector('.signinBtn');
+        const signupBtn = document.querySelector('.signupBtn');
+        const formBx = document.querySelector('.formBx');
+        const body = document.querySelector('body');
+
+        signupBtn.onclick = function(){
+            formBx.classList.add('active');
+            body.classList.add('active')
+        }
+
+        signinBtn.onclick = function(){
+            formBx.classList.remove('active');
+            body.classList.remove('active');
+        }
+
+        function kiemtramk()
+        {
+            //Có tối thiểu 8 ký tự, Có ít nhất một kí tự viết thường (a-z), Có ít nhất một kí tự viết hoa (A-Z), Có ít nhất một chữ số (0-9), Có ít nhất một ký tự đặc biệt (!@#$%^&)
+            var regmk = /^[a-zA-Z0-9]+$/;
+               var mk = document.getElementById("pass").value;
+               if(regmk.test(mk))
+               {
+                   document.getElementById("ermk").innerHTML = "";
+                   return true;
+               }
+               else
+               {
+                   document.getElementById("ermk").innerHTML = "Mật khẩu không hợp lệ!";
+                   return false;
+               }
+        }
+    </script>
+</body>
+</html>
