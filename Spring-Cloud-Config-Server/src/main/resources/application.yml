@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/leanhthanhtai/QLDuAn_Department_EmployeeService_Nhom8
+          clone-on-start: true
+          password: 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
+          username: leanhthanhtai
